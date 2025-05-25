@@ -1,5 +1,6 @@
 import requests
-from flask import Flask, jsonify, request
+from flask import Flask, request
+from urllib.parse import unquote
 
 app = Flask(__name__)
 
@@ -8,7 +9,10 @@ def info():
     id = request.args.get('id') 
     token = request.args.get('token') 
     mss = request.args.get('text')
-    is_html = request.args.get('html')  # يتحقق إذا كان المستخدم يريد إرسال الرسالة بصيغة HTML
+    is_html = request.args.get('html')
+
+    # فك الترميز في حال تم إرسال النص مشفراً
+    mss = unquote(mss) if mss else ''
 
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     
