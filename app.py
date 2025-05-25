@@ -18,7 +18,8 @@ def info():
     
     payload = {
         'chat_id': id,
-        'text': mss
+        'text': mss,
+        'parse_mode': 'HTML'
     }
 
     if is_html == "1":
